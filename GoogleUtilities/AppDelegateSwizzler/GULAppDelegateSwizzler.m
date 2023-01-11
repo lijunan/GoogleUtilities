@@ -693,6 +693,12 @@ static dispatch_once_t sProxyAppDelegateRemoteNotificationOnceToken;
 - (BOOL)application:(GULApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<NSString *, id> *)options {
+    
+    id<GULAppDelegateSwizzlerDelegate> delegate = UIApplication.sharedApplication.delegate;
+    if ([delegate respondsToSelector:@selector(googleApplication:openURL:options:)]) {
+        return [delegate googleApplication:application openURL:url options:options];
+    }
+    
   SEL methodSelector = @selector(application:openURL:options:);
   // Call the real implementation if the real App Delegate has any.
   NSValue *openURLIMPPointer =

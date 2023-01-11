@@ -23,6 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NSString *const GULAppDelegateInterceptorID;
 
 /** This class contains methods that isa swizzle the app delegate. */
+
+@protocol GULAppDelegateSwizzlerDelegate <NSObject>
+
+- (BOOL)googleApplication:(GULApplication *)application
+                  openURL:(NSURL *)url
+                  options:(NSDictionary<NSString *, id> *)options;
+@end
+
+/** This class contains methods that isa swizzle the app delegate. */
 @interface GULAppDelegateSwizzler : NSProxy
 
 /** Registers an app delegate interceptor whose methods will be invoked as they're invoked on the
